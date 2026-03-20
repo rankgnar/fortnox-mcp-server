@@ -1,0 +1,31 @@
+{
+  "name": "fortnox-mcp-server",
+  "version": "1.0.0",
+  "description": "A read-only MCP server for the Fortnox ERP API — give your AI agent access to invoices, suppliers, customers, and more",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "auth": "tsx src/auth/setup.ts"
+  },
+  "keywords": ["fortnox", "mcp", "model-context-protocol", "erp", "accounting", "api", "typescript", "ai-agent"],
+  "author": "",
+  "license": "MIT",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rankgnar/fortnox-mcp-server"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "dotenv": "^17.3.1",
+    "ioredis": "^5.10.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
