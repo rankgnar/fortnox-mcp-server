@@ -9,6 +9,9 @@ import * as invoicePayments from "./tools/invoice-payments.js";
 import * as articles from "./tools/articles.js";
 import * as customers from "./tools/customers.js";
 import * as company from "./tools/company.js";
+import * as vouchers from "./tools/vouchers.js";
+import * as expenses from "./tools/expenses.js";
+import * as inbox from "./tools/inbox.js";
 
 export function createServer(): McpServer {
   const server = new McpServer({
@@ -27,6 +30,9 @@ export function createServer(): McpServer {
   articles.register(server, client);
   customers.register(server, client);
   company.register(server, client);
+  vouchers.register(server, client);
+  expenses.register(server, client);
+  inbox.register(server, client);
 
   return server;
 }
