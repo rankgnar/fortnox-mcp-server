@@ -24,6 +24,10 @@ const scopes = [
   "companyinformation",
   "supplier",
   "supplierinvoice",
+  "bookkeeping",
+  "salary",
+  "inbox",
+  "customer",
 ].join("%20");
 
 const authorizationUrl = `${AUTH_URL}?client_id=${CLIENT_ID}&scope=${scopes}&state=fornox-setup&response_type=code&access_type=offline`;
