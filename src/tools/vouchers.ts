@@ -6,11 +6,11 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_vouchers",
-    "Lista todos los verifikationer (asientos contables). Puedes filtrar por año fiscal",
+    "List all vouchers (verifikationer). Can filter by financial year",
     {
-      financialyear: z.number().optional().describe("ID del año fiscal (si no se indica, usa el actual)"),
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      financialyear: z.number().optional().describe("Financial year ID (defaults to current if omitted)"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async ({ financialyear, page, limit }) => {
       const cacheKey = `vouchers:list:${financialyear || "current"}:${page || 1}`;
@@ -30,12 +30,12 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "list_vouchers_by_series",
-    "Lista verifikationer de una serie específica (ej: A, B, etc.)",
+    "List vouchers from a specific series (e.g. A, B, etc.)",
     {
-      series: z.string().describe("Serie del verifikat (ej: A, B, C)"),
-      financialyear: z.number().optional().describe("ID del año fiscal"),
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      series: z.string().describe("Voucher series (e.g. A, B, C)"),
+      financialyear: z.number().optional().describe("Financial year ID"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async ({ series, financialyear, page, limit }) => {
       const cacheKey = `vouchers:series:${series}:${financialyear || "current"}:${page || 1}`;
@@ -55,11 +55,11 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_voucher",
-    "Obtiene los detalles de un verifikat específico por serie y número",
+    "Get details of a specific voucher by series and number",
     {
-      series: z.string().describe("Serie del verifikat (ej: A)"),
-      number: z.number().describe("Número del verifikat"),
-      financialyear: z.number().optional().describe("ID del año fiscal"),
+      series: z.string().describe("Voucher series (e.g. A)"),
+      number: z.number().describe("Voucher number"),
+      financialyear: z.number().optional().describe("Financial year ID"),
     },
     async ({ series, number, financialyear }) => {
       const cacheKey = `vouchers:${series}:${number}`;

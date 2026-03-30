@@ -6,10 +6,10 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_expenses",
-    "Lista todos los gastos/utlägg registrados",
+    "List all registered expenses (utlägg)",
     {
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async ({ page, limit }) => {
       const cacheKey = `expenses:list:${page || 1}`;
@@ -28,9 +28,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_expense",
-    "Obtiene los detalles de un gasto/utlägg específico por su código",
+    "Get details of a specific expense (utlägg) by its code",
     {
-      code: z.string().describe("Código del gasto (ExpenseCode)"),
+      code: z.string().describe("Expense code (ExpenseCode)"),
     },
     async ({ code }) => {
       const cacheKey = `expenses:${code}`;

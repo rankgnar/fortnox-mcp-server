@@ -6,10 +6,10 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_supplier_invoice_payments",
-    "Lista todos los pagos de facturas de proveedores",
+    "List all supplier invoice payments",
     {
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async ({ page, limit }) => {
       const cacheKey = `supplier-payments:list:${page || 1}`;
@@ -24,9 +24,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_supplier_invoice_payment",
-    "Obtiene detalles de un pago específico de factura de proveedor",
+    "Get details of a specific supplier invoice payment",
     {
-      number: z.number().describe("Número del pago"),
+      number: z.number().describe("Payment number"),
     },
     async ({ number }) => {
       const data = await client.get(`/3/supplierinvoicepayments/${number}`);

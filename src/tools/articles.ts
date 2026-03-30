@@ -6,15 +6,15 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_articles",
-    "Lista artículos/productos. Puedes buscar por descripción, EAN, proveedor o fabricante",
+    "List articles/products. Can search by description, EAN, supplier or manufacturer",
     {
-      description: z.string().optional().describe("Filtrar por descripción"),
-      articlenumber: z.string().optional().describe("Filtrar por número de artículo"),
-      ean: z.string().optional().describe("Filtrar por código EAN"),
-      suppliernumber: z.string().optional().describe("Filtrar por número de proveedor"),
-      manufacturer: z.string().optional().describe("Filtrar por fabricante"),
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      description: z.string().optional().describe("Filter by description"),
+      articlenumber: z.string().optional().describe("Filter by article number"),
+      ean: z.string().optional().describe("Filter by EAN code"),
+      suppliernumber: z.string().optional().describe("Filter by supplier number"),
+      manufacturer: z.string().optional().describe("Filter by manufacturer"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async (input) => {
       const cacheKey = `articles:list:${input.description || input.articlenumber || "all"}:${input.page || 1}`;
@@ -38,9 +38,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_article",
-    "Obtiene los detalles de un artículo/producto por su número",
+    "Get full details of an article/product by its number",
     {
-      number: z.string().describe("Número de artículo"),
+      number: z.string().describe("Article number"),
     },
     async ({ number }) => {
       const cacheKey = `articles:${number}`;

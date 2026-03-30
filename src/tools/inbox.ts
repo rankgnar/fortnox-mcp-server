@@ -6,14 +6,17 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_inbox",
-    "Lista los archivos y carpetas del inbox de Fortnox (kvitton, facturas subidas, etc.)",
-    {},
-    async () => {
-      const cacheKey = "inbox:root";
+    "List files and folders in the Fortnox inbox. Without folderId shows the root (subfolders like Leverantörsfakturor, Kvitton, etc.). With folderId browses into a subfolder to see incoming invoices (inkomna fakturor).",
+    {
+      folderId: z.string().optional().describe("Subfolder ID to list (e.g. the Leverantörsfakturor folder). If omitted, shows the root."),
+    },
+    async ({ folderId }) => {
+      const path = folderId ? `/3/inbox/${folderId}` : "/3/inbox";
+      const cacheKey = `inbox:${folderId || "root"}`;
       const cached = await cacheGet(cacheKey);
       if (cached) return { content: [{ type: "text" as const, text: JSON.stringify(cached, null, 2) }] };
 
-      const data = await client.get("/3/inbox");
+      const data = await client.get(path);
       await cacheSet(cacheKey, data, 60);
       return { content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] };
     }
@@ -21,9 +24,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_inbox_file",
-    "Obtiene información de un archivo o carpeta específica del inbox",
+    "Get details of a specific file or folder in the inbox",
     {
-      id: z.string().describe("ID del archivo o carpeta en el inbox"),
+      id: z.string().describe("File or folder ID in the inbox"),
     },
     async ({ id }) => {
       const cacheKey = `inbox:${id}`;

@@ -5,7 +5,7 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "get_company_info",
-    "Obtiene la información de la empresa (nombre, dirección, número de organización, etc.)",
+    "Get company information (name, address, organization number, etc.)",
     {},
     async () => {
       const cacheKey = "company:info";
@@ -20,7 +20,7 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_company_settings",
-    "Obtiene la configuración de la empresa en Fortnox",
+    "Get company settings in Fortnox",
     {},
     async () => {
       const cacheKey = "company:settings";

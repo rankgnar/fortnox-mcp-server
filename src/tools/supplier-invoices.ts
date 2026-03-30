@@ -6,7 +6,7 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_supplier_invoices",
-    "Lista facturas de proveedores. Filtros: cancelled, fullypaid, unpaid, unpaidoverdue, unbooked, pendingpayment, authorizepending",
+    "List supplier invoices (leverantörsfakturor). Filters: cancelled, fullypaid, unpaid, unpaidoverdue, unbooked, pendingpayment, authorizepending",
     {
       filter: z.enum([
         "cancelled",
@@ -16,10 +16,10 @@ export function register(server: McpServer, client: FortnoxClient) {
         "unbooked",
         "pendingpayment",
         "authorizepending",
-      ]).optional().describe("Filtrar por estado"),
-      page: z.number().optional().describe("Página (default: 1)"),
-      limit: z.number().optional().describe("Resultados por página (default: 100)"),
-      lastmodified: z.string().optional().describe("Filtrar desde fecha modificación (YYYY-MM-DD)"),
+      ]).optional().describe("Filter by status"),
+      page: z.number().optional().describe("Page number (default: 1)"),
+      limit: z.number().optional().describe("Results per page (default: 100)"),
+      lastmodified: z.string().optional().describe("Filter from modification date (YYYY-MM-DD)"),
     },
     async ({ filter, page, limit, lastmodified }) => {
       const cacheKey = `supplier-invoices:list:${filter || "all"}:${page || 1}`;
@@ -40,9 +40,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_supplier_invoice",
-    "Obtiene los detalles completos de una factura de proveedor por su número",
+    "Get full details of a supplier invoice by its number",
     {
-      number: z.string().describe("Número de la factura del proveedor (GivenNumber)"),
+      number: z.string().describe("Supplier invoice number (GivenNumber)"),
     },
     async ({ number }) => {
       const cacheKey = `supplier-invoices:${number}`;

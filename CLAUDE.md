@@ -30,10 +30,10 @@ Fortnox MCP Server — a read-only MCP (Model Context Protocol) server that wrap
 - `src/auth/setup.ts` — One-time OAuth2 flow helper (local server on port 9999)
 - `src/client/fortnox.ts` — HTTP client with rate limiting (25 req/5s sliding window)
 - `src/cache/redis.ts` — Optional Redis cache (no-op if REDIS_URL not set)
-- `src/tools/` — 7 tool files, each exports `register(server, client)`
+- `src/tools/` — 11 tool files, each exports `register(server, client)`
 - `src/types/fortnox.ts` — TypeScript interfaces
 
-## Tools (14, all read-only)
+## Tools (21, all read-only)
 
 | File | Tools |
 |------|-------|
@@ -45,6 +45,9 @@ Fortnox MCP Server — a read-only MCP (Model Context Protocol) server that wrap
 | `customers.ts` | `list_customers`, `get_customer` |
 | `articles.ts` | `list_articles`, `get_article` |
 | `company.ts` | `get_company_info`, `get_company_settings` |
+| `vouchers.ts` | `list_vouchers`, `list_vouchers_by_series`, `get_voucher` |
+| `expenses.ts` | `list_expenses`, `get_expense` |
+| `inbox.ts` | `list_inbox`, `get_inbox_file` |
 
 ## Fortnox API Details
 

@@ -6,11 +6,11 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_invoice_payments",
-    "Lista pagos de facturas de clientes",
+    "List customer invoice payments",
     {
-      invoicenumber: z.string().optional().describe("Filtrar por número de factura"),
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      invoicenumber: z.string().optional().describe("Filter by invoice number"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async ({ invoicenumber, page, limit }) => {
       const cacheKey = `invoice-payments:list:${invoicenumber || "all"}:${page || 1}`;
@@ -30,9 +30,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_invoice_payment",
-    "Obtiene detalles de un pago de factura de cliente",
+    "Get details of a customer invoice payment",
     {
-      number: z.number().describe("Número del pago"),
+      number: z.number().describe("Payment number"),
     },
     async ({ number }) => {
       const data = await client.get(`/3/invoicepayments/${number}`);

@@ -6,13 +6,13 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_customers",
-    "Lista todos los clientes. Puedes buscar por nombre",
+    "List all customers. Can search by name",
     {
-      name: z.string().optional().describe("Filtrar por nombre del cliente"),
-      city: z.string().optional().describe("Filtrar por ciudad"),
-      email: z.string().optional().describe("Filtrar por email"),
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      name: z.string().optional().describe("Filter by customer name"),
+      city: z.string().optional().describe("Filter by city"),
+      email: z.string().optional().describe("Filter by email"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async (input) => {
       const cacheKey = `customers:list:${input.name || "all"}:${input.page || 1}`;
@@ -34,9 +34,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_customer",
-    "Obtiene los detalles completos de un cliente por su número",
+    "Get full details of a customer by its number",
     {
-      number: z.string().describe("Número del cliente (CustomerNumber)"),
+      number: z.string().describe("Customer number (CustomerNumber)"),
     },
     async ({ number }) => {
       const cacheKey = `customers:${number}`;

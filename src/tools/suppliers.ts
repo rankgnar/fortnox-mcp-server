@@ -6,11 +6,11 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_suppliers",
-    "Lista todos los proveedores. Puedes buscar por nombre",
+    "List all suppliers. Can search by name",
     {
-      name: z.string().optional().describe("Filtrar por nombre del proveedor"),
-      page: z.number().optional().describe("Página"),
-      limit: z.number().optional().describe("Resultados por página"),
+      name: z.string().optional().describe("Filter by supplier name"),
+      page: z.number().optional().describe("Page number"),
+      limit: z.number().optional().describe("Results per page"),
     },
     async ({ name, page, limit }) => {
       const cacheKey = `suppliers:list:${name || "all"}:${page || 1}`;
@@ -25,9 +25,9 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_supplier",
-    "Obtiene los detalles completos de un proveedor por su número",
+    "Get full details of a supplier by its number",
     {
-      number: z.string().describe("Número del proveedor (SupplierNumber)"),
+      number: z.string().describe("Supplier number (SupplierNumber)"),
     },
     async ({ number }) => {
       const cacheKey = `suppliers:${number}`;
