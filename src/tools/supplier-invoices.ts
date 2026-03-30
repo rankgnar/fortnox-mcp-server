@@ -6,7 +6,7 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_supplier_invoices",
-    "List supplier invoices (leverantörsfakturor). Filters: cancelled, fullypaid, unpaid, unpaidoverdue, unbooked, pendingpayment, authorizepending",
+    "List registered/booked supplier invoices (leverantörsfakturor). These are invoices already entered into the accounting system. NOT the same as incoming invoices (inkomna fakturor) — for those, use list_inbox with folderId 'inbox_s'. Filters: cancelled, fullypaid, unpaid, unpaidoverdue, unbooked, pendingpayment, authorizepending",
     {
       filter: z.enum([
         "cancelled",
@@ -40,7 +40,7 @@ export function register(server: McpServer, client: FortnoxClient) {
 
   server.tool(
     "get_supplier_invoice",
-    "Get full details of a supplier invoice by its number",
+    "Get full details of a registered supplier invoice by its number. For the actual PDF of an incoming invoice, use list_inbox + download_inbox_file instead.",
     {
       number: z.string().describe("Supplier invoice number (GivenNumber)"),
     },

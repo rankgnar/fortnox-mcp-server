@@ -6,7 +6,7 @@ import { cacheGet, cacheSet } from "../cache/redis.js";
 export function register(server: McpServer, client: FortnoxClient) {
   server.tool(
     "list_archive",
-    "List files and folders in the Fortnox archive (arkivplats). Without folderId shows the root. With folderId browses into a subfolder.",
+    "List files and folders in the Fortnox archive (arkivplats). This is the permanent file storage. For incoming invoices received by email, use list_inbox instead.",
     {
       folderId: z.string().optional().describe("Subfolder ID to list. If omitted, shows the root."),
     },
