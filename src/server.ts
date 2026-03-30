@@ -12,6 +12,7 @@ import * as company from "./tools/company.js";
 import * as vouchers from "./tools/vouchers.js";
 import * as expenses from "./tools/expenses.js";
 import * as inbox from "./tools/inbox.js";
+import * as archive from "./tools/archive.js";
 
 export function createServer(): McpServer {
   const server = new McpServer({
@@ -33,6 +34,7 @@ export function createServer(): McpServer {
   vouchers.register(server, client);
   expenses.register(server, client);
   inbox.register(server, client);
+  archive.register(server, client);
 
   return server;
 }
