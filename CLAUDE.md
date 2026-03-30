@@ -58,8 +58,7 @@ Fortnox MCP Server — a read-only MCP (Model Context Protocol) server that wrap
 - Access token expires: 1 hour (auto-refresh)
 - Refresh token expires: 45 days
 - Rate limit: 25 requests per 5 seconds
-- Scopes enabled: `article`, `payment`, `invoice`, `companyinformation`, `supplier`, `supplierinvoice`
-- Missing scope: `customer` (not yet enabled in Fortnox portal)
+- Scopes enabled: `article`, `payment`, `invoice`, `companyinformation`, `supplier`, `supplierinvoice`, `bookkeeping`, `salary`, `inbox`, `customer`, `archive`
 
 ## Auth Notes
 
