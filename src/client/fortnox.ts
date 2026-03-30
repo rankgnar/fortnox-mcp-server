@@ -117,6 +117,21 @@ export class FortnoxClient {
     return response.json() as Promise<T>;
   }
 
+  async getFile(path: string): Promise<{ data: string; contentType: string }> {
+    const response = await fortnoxFetch(path, {
+      headers: { Accept: "*/*" },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Fortnox API error: ${response.status} ${response.statusText}`);
+    }
+
+    const buffer = await response.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString("base64");
+    const contentType = response.headers.get("content-type") || "application/octet-stream";
+    return { data: base64, contentType };
+  }
+
   async delete(path: string): Promise<void> {
     const response = await fortnoxFetch(path, { method: "DELETE" });
 

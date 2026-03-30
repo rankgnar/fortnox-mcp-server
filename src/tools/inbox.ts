@@ -38,4 +38,27 @@ export function register(server: McpServer, client: FortnoxClient) {
       return { content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] };
     }
   );
+
+  server.tool(
+    "download_inbox_file",
+    "Download a file (PDF) from the Fortnox inbox. Returns the file as base64-encoded data.",
+    {
+      fileId: z.string().describe("File ID to download (from list_inbox results)"),
+    },
+    async ({ fileId }) => {
+      const { data, contentType } = await client.getFile(`/3/inbox/${fileId}`);
+      return {
+        content: [
+          {
+            type: "resource" as const,
+            resource: {
+              uri: `fortnox://inbox/${fileId}`,
+              mimeType: contentType,
+              blob: data,
+            },
+          },
+        ],
+      };
+    }
+  );
 }
